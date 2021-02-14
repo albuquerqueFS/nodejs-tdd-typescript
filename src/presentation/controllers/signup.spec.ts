@@ -1,3 +1,4 @@
+import { HttpResponse } from '../protocols/http'
 import { SignUpController } from './signup'
 
 describe('SignUp Controlller', () => {

@@ -1,4 +1,4 @@
-import { InvalidParamError, MissingParamError, ServerError } from '../errors/index'
+import { IncopatiblePassword, InvalidParamError, MissingParamError, ServerError } from '../errors/index'
 import { EmailValidator } from '../protocols/index'
 import { SignUpController } from './signup'
 
@@ -134,5 +134,20 @@ describe('SignUp Controlller', () => {
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+  test('Should return 400 if passwordConfirmation is not equal', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        email: 'any_email',
+        name: 'any_name',
+        password: 'any_password',
+        passwordConfirmation: 'wrong_password'
+      }
+    }
+
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new IncopatiblePassword())
   })
 })

@@ -210,7 +210,7 @@ describe('SignUp Controlller', () => {
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
   })
-  test('Should return 200 if valid data is provided', () => {
+  test('Should return 200 if valid account is provided to method add()', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
